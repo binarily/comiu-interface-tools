@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import requests
 
-screen = sg.InputText(disabled=True)
+screen = sg.Multiline(disabled=True, size=(45, 5))
 beverage_buttons = [
     sg.Button('Carlsberg', button_color="OFF"), sg.Button('Tuborg', button_color="OFF"),
     sg.Button('Okocim', button_color="OFF"), sg.Button('Desperados', button_color="OFF"),
@@ -11,13 +11,15 @@ beverage_buttons = [
 colour_button = sg.Button("Colour")
 colours = {4: "red", 5: "green", 6: "blue"}
 
+left_frame = sg.Frame("", [beverage_buttons[0:2],
+                           beverage_buttons[4:6]])
+middle_frame = sg.Frame("", [[screen],
+                             [sg.Button('+'), sg.Button('PAY'), sg.Button('-')]], element_justification="center")
+right_frame = sg.Frame("", [beverage_buttons[2:4],
+                            beverage_buttons[6:8]])
 alternating_color = "white"
 # All the stuff inside your window.
-layout = [[sg.Text('Table interface')],
-          [sg.Text("Screen"), screen],
-          [sg.Button('+'), sg.Button('PAY'), sg.Button('-')],
-          beverage_buttons[0:4],
-          beverage_buttons[4:8],
+layout = [[left_frame, middle_frame, right_frame],
           [colour_button, sg.Button("Update"), sg.Button('Cancel')]]
 
 
